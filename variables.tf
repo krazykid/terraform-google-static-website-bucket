@@ -39,6 +39,16 @@ variable "fqdns" {
   type = list(string)
 }
 
+variable "enable_cdn" {
+  type = bool
+  default = true
+}
+
+variable "max_cache_age" {
+  type = number
+  default = 3600
+}
+
 locals {
   website_bucket_base_name  = "${var.base_id}-website"
   backend_id                = "${var.base_id}-backend"
@@ -50,4 +60,6 @@ locals {
   https_proxy_id            = "${var.base_id}-https-proxy"
   public_addr_id            = "${var.base_id}-public-address"
   global_forwarding_rule_id = "${var.base_id}-global-fowarding-rule"
+  enable_cdn = var.enable_cdn
+  max_cache_age = var.max_cache_age
 }

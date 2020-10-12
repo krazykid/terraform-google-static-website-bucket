@@ -16,3 +16,5 @@ and attaches it to the load balancer.
 |`bucket_versioning`|No|bool|`true`|Enable [object versioning](https://cloud.google.com/storage/docs/object-versioning)|
 |`main_page_suffix`|No|string|`index.html`|`main_page_suffix` applies to each subdirectory of the bucket, and is the default page to GET|
 |`not_found_page`|No|string|`404.html`|Location of the not found page.|
+|`enable_cdn`|No|bool|`true`|Whether or not to enable CDN|
+|`max_cache_age`|No|number|3600|Set the max cache age for the CDN|

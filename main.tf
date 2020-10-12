@@ -37,7 +37,11 @@ resource "google_compute_backend_bucket" "lb_bucket_backend" {
   bucket_name = google_storage_bucket.website_bucket.name
   name        = local.backend_id
   description = local.backend_desc
-  enable_cdn  = true
+  enable_cdn  = var.enable_cdn
+
+  cdn_policy {
+    signed_url_cache_max_age_sec = local.max_cache_age
+  }
 
   depends_on = [
     google_storage_bucket_iam_member.allow_all_users
