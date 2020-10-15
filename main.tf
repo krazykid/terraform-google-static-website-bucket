@@ -2,11 +2,11 @@ resource "random_uuid" "website_bucket_uuid" {}
 
 
 resource "google_storage_bucket" "website_bucket" {
-  project            = var.project_id
-  name               = var.bucket_add_uuid ? "${local.website_bucket_base_name}-${random_uuid.website_bucket_uuid.result}" : local.website_bucket_base_name
-  location           = var.bucket_location
-  force_destroy      = true
-  bucket_policy_only = true
+  project                     = var.project_id
+  name                        = var.bucket_add_uuid ? "${local.website_bucket_base_name}-${random_uuid.website_bucket_uuid.result}" : local.website_bucket_base_name
+  location                    = var.bucket_location
+  force_destroy               = true
+  uniform_bucket_level_access = true
 
   versioning {
     enabled = var.bucket_versioning
@@ -26,9 +26,9 @@ resource "google_storage_bucket" "website_bucket" {
 
 
 resource "google_storage_bucket_iam_member" "allow_all_users" {
-  bucket  = google_storage_bucket.website_bucket.name
-  member  = "allUsers"
-  role    = "roles/storage.legacyObjectReader"
+  bucket = google_storage_bucket.website_bucket.name
+  member = "allUsers"
+  role   = "roles/storage.legacyObjectReader"
 }
 
 
@@ -76,7 +76,7 @@ resource "google_compute_target_https_proxy" "website_https_proxy" {
   ssl_certificates = [
     google_compute_managed_ssl_certificate.website_certificate.self_link
   ]
-  url_map          = google_compute_url_map.website_url_map.self_link
+  url_map = google_compute_url_map.website_url_map.self_link
 }
 
 
